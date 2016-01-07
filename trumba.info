@@ -1,0 +1,9 @@
+name = Trumba
+description = Provides a way to place trumba calendar elements (spuds) on a page.
+package = Calendar
+core = 7.x
+version = 7.x-1.x
+configure = admin/config/system/trumba
+
+dependencies[] = ctools
+dependencies[] = panels
