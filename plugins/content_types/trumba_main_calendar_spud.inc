@@ -41,7 +41,7 @@ function trumba_main_calendar_spud_edit_form($form, &$form_state) {
     '#required' => TRUE,
     '#title' => t('Web Name'),
     '#description' => t('This is the unique identifier for your calendar account on Trumba.'),
-    '#default_value' => ($conf['trumba_main_cal_url']) ? $conf['trumba_main_cal_url'] : $default_webname,
+    '#default_value' => ($conf['trumba_main_cal_webname']) ? $conf['trumba_main_cal_webname'] : $default_webname,
   );
 
   $form['trumba_main_cal_url'] = array(
