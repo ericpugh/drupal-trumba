@@ -11,7 +11,7 @@ use Drupal\Component\Utility\Html;
  *
  * @Block(
  *  id = "main_calendar_spud_block",
- *  admin_label = @Translation("Main Calendar Spud"),
+ *  admin_label = @Translation("Trumba Main Calendar Spud"),
  * )
  */
 class MainCalendarSpudBlock extends BlockBase {
