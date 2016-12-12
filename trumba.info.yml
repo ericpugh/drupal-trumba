@@ -1,0 +1,10 @@
+name: Trumba
+description: 'Provides a way to place trumba calendar elements (spuds) on a page.'
+package: Calendar
+core: 8.x
+version: 7.x-1.0
+dependencies:
+  - panels
+project: trumba
+datestamp: '1452814163'
+type: module

@@ -1,0 +1,6 @@
+trumba.settings:
+  type: mapping
+  label: Settings
+  mapping:
+    trumba_webname:
+      type: string

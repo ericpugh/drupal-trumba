@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Put Trumba spuds everywhere!
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function trumba_theme($existing, $type, $theme, $path) {
+  $return = array();
+
+  $return['trumba_calendar'] = array(
+    'variables' => array(
+      'spud_id' => NULL,
+    ),
+    'template' => 'trumba-calendar',
+  );
+
+  return $return;
+}
+
+/**
+ * Create Javascript settings for a Trumba Spud.
+ *
+ * @param string $spud_id
+ *    The identifier of the spud.
+ * @param array $params
+ *    The array of configuration parameters.
+ */
+function _trumba_spud_embed($spud_id, $params) {
+
+  $build = [];
+  $build['#theme'] = 'trumba_calendar';
+  $build['#spud_id'] = $spud_id;
+
+  $build['#attached']['library'][] = 'trumba/trumba';
+  $build['#attached']['library'][] = 'trumba/trumba.embed';
+
+  $build['#attached']['drupalSettings']['trumba'][$spud_id] = $params;
+
+  return $build;
+
+}

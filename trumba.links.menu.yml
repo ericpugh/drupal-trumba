@@ -1,0 +1,5 @@
+trumba.admin_settings_form:
+  route_name: trumba.admin_settings_form
+  title: Trumba
+  description: 'Main configuration for using Trumba on your site.'
+  parent: system.admin_config_system
