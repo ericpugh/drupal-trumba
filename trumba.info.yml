@@ -4,7 +4,7 @@ package: Calendar
 core: 8.x
 version: 7.x-1.0
 dependencies:
-  - panels
+  - block
 project: trumba
 datestamp: '1452814163'
 type: module
