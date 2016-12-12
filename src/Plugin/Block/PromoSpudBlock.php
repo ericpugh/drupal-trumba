@@ -11,7 +11,7 @@ use Drupal\Component\Utility\Html;
  *
  * @Block(
  *  id = "promo_spud_block",
- *  admin_label = @Translation("Promo Calendar Spud"),
+ *  admin_label = @Translation("Trumba Promo Calendar or Control Spud"),
  * )
  */
 class PromoSpudBlock extends BlockBase {
