@@ -44,7 +44,7 @@ class OpenSpudBlock extends BlockBase {
       '#type' => 'textfield',
       '#title' => $this->t('Spud Type'),
       '#description' => $this->t('Enter the name for the type of spud this should be.'),
-      '#default_value' => '',
+      '#default_value' => isset($this->configuration['spud_type']) ? $this->configuration['spud_type'] : '',
       '#maxlength' => 64,
       '#size' => 64,
       '#weight' => '0',

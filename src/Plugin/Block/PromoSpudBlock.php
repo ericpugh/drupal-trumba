@@ -58,7 +58,7 @@ class PromoSpudBlock extends BlockBase {
         'filter' => t('filter'),
       ),
       '#description' => $this->t('Select the type of spud this should be.'),
-      '#default_value' => '',
+      '#default_value' => isset($this->configuration['spud_type']) ? $this->configuration['spud_type'] : '',
       '#weight' => '0',
       '#required' => TRUE,
     );
