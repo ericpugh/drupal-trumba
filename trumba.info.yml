@@ -1,7 +1,7 @@
 name: Trumba
-description: 'Provides a way to place trumba calendar elements (spuds) on a page.'
-package: Calendar
+type: module
+description: Provides a way to place trumba calendar elements (spuds) on a page.
 core: 8.x
+package: Other
 dependencies:
   - block
-project: trumba

@@ -9,4 +9,3 @@ trumba.embed:
   dependencies:
     - core/jquery
     - trumba/trumba
-

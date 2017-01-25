@@ -1,23 +1,11 @@
-trumba.admin_settings_form:
-  path: /admin/config/system/trumba
+
+trumba.trumba_configuration_form:
+  path: '/admin/config/trumba/trumbaconfiguration'
   defaults:
-    _title: Trumba
-    _form: \Drupal\trumba\Form\TrumbaAdminSettingsForm
+    _form: '\Drupal\trumba\Form\TrumbaConfigurationForm'
+    _title: 'TrumbaConfigurationForm'
   requirements:
-    _permission: 'administer trumba'
-#
-#trumba.admin_open_settings_form:
-#  path: /admin/config/system/trumba/open
-#  defaults:
-#    _title: Trumba Open Spud
-#    _form: \Drupal\trumba\Form\TrumbaAdminSettingsForm
-#  requirements:
-#    _permission: 'administer trumba'
-#
-#trumba.admin_promo_settings_form:
-#  path: /admin/config/system/trumba/promo
-#  defaults:
-#    _title: Trumba Promo Spud
-#    _form: \Drupal\trumba\Form\TrumbaAdminSettingsForm
-#  requirements:
-#    _permission: 'administer trumba'
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

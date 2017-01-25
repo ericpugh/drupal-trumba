@@ -2,23 +2,25 @@
 
 /**
  * @file
- * Put Trumba spuds everywhere!
+ * Contains trumba.module..
  */
+
+use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
- * Implements hook_theme().
+ * Implements hook_help().
  */
-function trumba_theme($existing, $type, $theme, $path) {
-  $return = array();
+function trumba_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the trumba module.
+    case 'help.page.trumba':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a way to place trumba calendar elements (spuds) on a page.') . '</p>';
+      return $output;
 
-  $return['trumba_calendar'] = array(
-    'variables' => array(
-      'spud_id' => NULL,
-    ),
-    'template' => 'trumba-calendar',
-  );
-
-  return $return;
+    default:
+  }
 }
 
 /**
@@ -42,4 +44,19 @@ function _trumba_spud_embed($spud_id, $params) {
 
   return $build;
 
+}
+
+/**
+ * Implements hook_theme().
+ */
+function trumba_theme() {
+  $return = array();
+
+  $return['trumba_calendar'] = [
+    'variables' => [
+      'spud_id' => ''
+    ],
+  ];
+
+  return $return;
 }
