@@ -5,6 +5,8 @@ namespace Drupal\trumba\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
 
 /**
  * Provides a 'TrumbaPromoControlSpudBlock' block.
@@ -92,6 +94,18 @@ class TrumbaPromoControlSpudBlock extends BlockBase {
     );
 
     return _trumba_spud_embed($spud_id, $params);
+  }
+
+  /**
+   * Checks to see if the block should be shown per permissions.
+   *
+   * @param \Drupal\Core\Session\AccountInterface $account
+   * @return \Drupal\Core\Access\AccessResult
+   */
+  protected function blockAccess(AccountInterface $account) {
+    // The block is visible to those that have permission to view trumba
+    // spud blocks.
+    return AccessResult::allowedIfHasPermission($account,'view trumba spud blocks');
   }
 
 }
