@@ -2,36 +2,29 @@
  * @file
  * Javascript for creating Trumba Calendar Spuds.
  */
+(function ($, Drupal) {
+    "use strict";
 
-(function ($, window) {
-  'use strict';
+    // Create a Trumba Spud.
+    Drupal.behaviors.TrumbaAddSpud = {
+        attach: function (context, settings) {
+            // Find each Trumba spud and init once.
+            $(context).find('.trumba-spud').once('trumba-init').each(function() {
 
-  // Create a Trumba Spud.
-  Drupal.behaviors.TrumbaAddSpud = {
-    attach: function (context, settings) {
+                $(this).each(function () {
+                    var spudId = $(this).data('trumba-spud');
 
-      // Do nothing if the external Trumba script has not loaded.
-      if (!window.$Trumba) {
-        return;
-      }
+                    console.log(spudId);
 
-      // Find each Trumba spud and init once.
-      $(context).find('.trumba-spud').once('trumba-init').each(function() {
+                    // Clone the object so we don't wreck the original settings.
+                    var spud = $.extend(true, {}, settings.trumba[spudId]);
 
-        $(this).each(function () {
-          var spudId = $(this).data('trumba-spud');
+                    // Create the calendar.
+                    $Trumba.addSpud(spud);
+                });
+            });
 
-          console.log(spudId);
+        }
+    };
 
-          // Clone the object so we don't wreck the original settings.
-          var spud = $.extend(true, {}, settings.trumba[spudId]);
-
-          // Create the calendar.
-          $Trumba.addSpud(spud);
-        });
-      });
-
-    }
-  };
-
-})(jQuery, window);
+})(jQuery, Drupal);
