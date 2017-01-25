@@ -3,7 +3,7 @@ trumba.trumba_configuration_form:
   path: '/admin/config/trumba/trumbaconfiguration'
   defaults:
     _form: '\Drupal\trumba\Form\TrumbaConfigurationForm'
-    _title: 'TrumbaConfigurationForm'
+    _title: 'Trumba Configuration'
   requirements:
     _permission: 'access administration pages'
   options:
