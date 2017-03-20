@@ -2,11 +2,7 @@
 
 namespace Drupal\trumba\Plugin\Block;
 
-use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Html;
-use Drupal\Core\Access\AccessResult;
-use Drupal\Core\Session\AccountInterface;
 
 /**
  * Provides a 'TrumbaMainCalendarSpudBlock' block.
@@ -16,41 +12,20 @@ use Drupal\Core\Session\AccountInterface;
  *  admin_label = @Translation("Trumba Main Calendar Spud"),
  * )
  */
-class TrumbaMainCalendarSpudBlock extends BlockBase {
+class TrumbaMainCalendarSpudBlock extends TrumbaBlockBase {
 
   /**
    * {@inheritdoc}
    */
   public function blockForm($form, FormStateInterface $form_state) {
-
-    $default_trumba_web_name = \Drupal::config('trumba.trumbaconfiguration')->get('default_web_name');
-
-    $form['trumba_main_calendar_web_name'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Web Name'),
-      '#description' => $this->t('This is the unique identifier for your calendar account on Trumba.'),
-      '#default_value' => isset($this->configuration['trumba_main_calendar_web_name']) ? $this->configuration['trumba_main_calendar_web_name'] : $default_trumba_web_name,
-      '#maxlength' => 255,
-      '#size' => 64,
-      '#weight' => '1',
-      '#required' => TRUE,
-    );
-    $form['trumba_main_calendar_calendar_url'] = array(
-      '#type' => 'textfield',
-      '#title' => $this->t('Calendar URL'),
-      '#description' => $this->t('Enter the full path URL for this website where this calendar will be placed (e.g.: https://www.yoursite.com/calendar).'),
-      '#default_value' => isset($this->configuration['trumba_main_calendar_calendar_url']) ? $this->configuration['trumba_main_calendar_calendar_url'] : '',
-      '#maxlength' => 255,
-      '#size' => 64,
-      '#weight' => '2',
-    );
-    $form['trumba_main_calendar_open_events'] = array(
+    $form = parent::blockForm($form, $form_state);
+    $form['trumba_main_calendar_open_events'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Open events in new window'),
       '#description' => $this->t(''),
       '#default_value' => isset($this->configuration['trumba_main_calendar_open_events']) ? $this->configuration['trumba_main_calendar_open_events'] : '',
       '#weight' => '3',
-    );
+    ];
 
     return $form;
   }
@@ -59,8 +34,7 @@ class TrumbaMainCalendarSpudBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
-    $this->configuration['trumba_main_calendar_web_name'] = $form_state->getValue('trumba_main_calendar_web_name');
-    $this->configuration['trumba_main_calendar_calendar_url'] = $form_state->getValue('trumba_main_calendar_calendar_url');
+    parent::blockSubmit($form, $form_state);
     $this->configuration['trumba_main_calendar_open_events'] = $form_state->getValue('trumba_main_calendar_open_events');
   }
 
@@ -68,30 +42,15 @@ class TrumbaMainCalendarSpudBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-
-    $spud_id = Html::getUniqueId($this->getBaseId());
-
-    $params = array(
-      'webName' => $this->configuration['trumba_main_calendar_web_name'],
+    $params = [
+      'spudId' => $this->spudId,
+      'webName' => $this->configuration['trumba_web_name'],
+      'detailBase' => $this->convertUriToAbsolutePathOrUrl($this->configuration['trumba_spud_url']),
       'spudType' => 'main',
-      'detailBase' => $this->configuration['trumba_main_calendar_calendar_url'],
       'openInNewWindow' => $this->configuration['trumba_main_calendar_open_events'],
-      'spudId' => $spud_id,
-    );
+    ];
 
-    return _trumba_spud_embed($spud_id, $params);
-  }
-
-  /**
-   * Checks to see if the block should be shown per permissions.
-   *
-   * @param \Drupal\Core\Session\AccountInterface $account
-   * @return \Drupal\Core\Access\AccessResult
-   */
-  protected function blockAccess(AccountInterface $account) {
-    // The block is visible to those that have permission to view trumba
-    // spud blocks.
-    return AccessResult::allowedIfHasPermission($account,'view trumba spud blocks');
+    return _trumba_spud_embed($this->spudId, $params);
   }
 
 }
