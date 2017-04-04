@@ -14,8 +14,6 @@
                 $(this).each(function () {
                     var spudId = $(this).data('trumba-spud');
 
-                    console.log(spudId);
-
                     // Clone the object so we don't wreck the original settings.
                     var spud = $.extend(true, {}, settings.trumba[spudId]);
 
