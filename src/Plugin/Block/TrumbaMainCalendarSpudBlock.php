@@ -46,7 +46,7 @@ class TrumbaMainCalendarSpudBlock extends TrumbaBlockBase {
       'spudId' => $this->spudId,
       'webName' => $this->configuration['trumba_web_name'],
       'detailBase' => $this->convertUriToAbsolutePathOrUrl($this->configuration['trumba_spud_url']),
-      'spudType' => 'list',
+      'spudType' => 'main',
       'openInNewWindow' => $this->configuration['trumba_main_calendar_open_events'],
     ];
 
