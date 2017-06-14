@@ -49,8 +49,8 @@ class TrumbaMainCalendarSpudBlock extends TrumbaBlockBase {
       'spudType' => 'main',
       'openInNewWindow' => $this->configuration['trumba_main_calendar_open_events'],
     ];
-
-    return _trumba_spud_embed($this->spudId, $params);
+    $cache_spud_id = str_ireplace('_','-',$this->getPluginId());
+    return _trumba_spud_embed($this->spudId, $params, $cache_spud_id);
   }
 
 }

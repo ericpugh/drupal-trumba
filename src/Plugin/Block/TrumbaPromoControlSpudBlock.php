@@ -71,10 +71,10 @@ class TrumbaPromoControlSpudBlock extends TrumbaBlockBase {
       'webName' => $this->configuration['trumba_web_name'],
       'teaserBase' => $this->configuration['trumba_spud_url'],
       'spudType' => $this->configuration['trumba_promo_control_spud_type'],
-      'spudConfig' => $this->configuration['trumba_promo_control_spud_configuration'],
+      'spudConfig' => $this->configuration['trumba_promo_control_spud_configuration']
     ];
-
-    return _trumba_spud_embed($this->spudId, $params);
+    $cache_spud_id = str_ireplace('_','-',$this->getPluginId());
+    return _trumba_spud_embed($this->spudId, $params, $cache_spud_id);
   }
 
 }

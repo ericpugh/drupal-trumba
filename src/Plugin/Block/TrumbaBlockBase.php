@@ -3,6 +3,9 @@
 namespace Drupal\trumba\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Cache\CacheTagsInvalidator;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Access\AccessResult;
@@ -12,7 +15,7 @@ use Drupal\Core\Url;
 /**
  * Defines a base block implementation that Trumba blocks plugins will extend.
  */
-abstract class TrumbaBlockBase extends BlockBase {
+abstract class TrumbaBlockBase extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The default Trumba Web Name.
@@ -25,16 +28,32 @@ abstract class TrumbaBlockBase extends BlockBase {
    * @var string
    */
   public $spudId;
+  /**
+   * @var \Drupal\Core\Cache\CacheTagsInvalidator
+   */
+  public $cacheInvalidator;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, CacheTagsInvalidator $cacheInvalidator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->defaultTrumbaWebName = \Drupal::config('trumba.trumbaconfiguration')->get('default_web_name');
     $this->spudId = Html::getUniqueId($this->getBaseId());
+    $this->cacheInvalidator = $cacheInvalidator;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('cache_tags.invalidator')
+    );
+  }
   /**
    * {@inheritdoc}
    */
@@ -91,6 +110,7 @@ abstract class TrumbaBlockBase extends BlockBase {
    * {@inheritdoc}
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->cacheInvalidator->invalidateTags(['trumba:' . $this->spudId]);
     $this->configuration['trumba_web_name'] = $form_state->getValue('trumba_web_name');
     $this->configuration['trumba_spud_url'] = $this->convertInputToUriString($form_state->getValue('trumba_spud_url'));
   }
