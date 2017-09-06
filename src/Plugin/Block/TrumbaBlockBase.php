@@ -122,7 +122,7 @@ abstract class TrumbaBlockBase extends BlockBase implements ContainerFactoryPlug
    * @return \Drupal\Core\GeneratedUrl|string
    */
   public function convertUriToAbsolutePathOrUrl($uri) {
-    return Url::fromUri($uri)->setAbsolute()->toString();
+    return $uri ? Url::fromUri($uri)->setAbsolute()->toString() : '';
   }
 
   /**
@@ -132,7 +132,7 @@ abstract class TrumbaBlockBase extends BlockBase implements ContainerFactoryPlug
    * @return \Drupal\Core\GeneratedUrl|string
    */
   public function convertUriToRelativePathOrUrl($uri) {
-    return Url::fromUri($uri)->toString();
+    return $uri ? Url::fromUri($uri)->toString() : '';
   }
 
   /**
