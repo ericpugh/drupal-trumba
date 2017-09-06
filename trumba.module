@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Cache\CacheableMetadata;
 
 /**
  * Implements hook_help().
@@ -31,7 +32,7 @@ function trumba_help($route_name, RouteMatchInterface $route_match) {
  * @param array $params
  *    The array of configuration parameters.
  */
-function _trumba_spud_embed($spud_id, $params) {
+function _trumba_spud_embed($spud_id, $params, $cache_tag_id) {
 
   $build = [];
   $build['#theme'] = 'trumba_calendar';
@@ -41,6 +42,10 @@ function _trumba_spud_embed($spud_id, $params) {
   $build['#attached']['library'][] = 'trumba/trumba.embed';
 
   $build['#attached']['drupalSettings']['trumba'][$spud_id] = $params;
+
+  $cacheableMetadata = new CacheableMetadata();
+  $cacheableMetadata->setCacheTags(['trumba:' . $cache_tag_id]);
+  $cacheableMetadata->applyTo($build);
 
   return $build;
 

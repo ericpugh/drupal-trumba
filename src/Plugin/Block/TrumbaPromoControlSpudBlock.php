@@ -26,7 +26,13 @@ class TrumbaPromoControlSpudBlock extends TrumbaBlockBase {
       '#type' => 'select',
       '#title' => $this->t('Spud Type'),
       '#description' => $this->t('Select the type of spud this should be.'),
-      '#options' => array('upcoming' => $this->t('upcoming'), 'datefinder' => $this->t('datefinder'), 'daysummary' => $this->t('daysummary'), 'filter' => $this->t('filter')),
+      '#options' => array('upcoming' => $this->t('Upcoming'),
+        'datefinder' => $this->t('Date Finder'),
+        'daysummary' => $this->t('Day Summary'),
+        'searchlabeled' => $this->t('Search'),
+        'monthlist' => $this->t('Month List'),
+        'tabchooser' => $this->t('View Chooser Tabbed'),
+        'filter' => $this->t('filter')),
       '#default_value' => isset($this->configuration['trumba_promo_control_spud_type']) ? $this->configuration['trumba_promo_control_spud_type'] : '',
       '#size' => 1,
       '#weight' => '1',
@@ -65,10 +71,10 @@ class TrumbaPromoControlSpudBlock extends TrumbaBlockBase {
       'webName' => $this->configuration['trumba_web_name'],
       'teaserBase' => $this->configuration['trumba_spud_url'],
       'spudType' => $this->configuration['trumba_promo_control_spud_type'],
-      'spudConfig' => $this->configuration['trumba_promo_control_spud_configuration'],
+      'spudConfig' => $this->configuration['trumba_promo_control_spud_configuration']
     ];
-
-    return _trumba_spud_embed($this->spudId, $params);
+    $cache_spud_id = str_ireplace('_','-',$this->getPluginId());
+    return _trumba_spud_embed($this->spudId, $params, $cache_spud_id);
   }
 
 }
